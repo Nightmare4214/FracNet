@@ -146,18 +146,32 @@ class FracNetTrainDataset(Dataset):
         # x_angle = np.pi / 4 * random.random()
         # y_angle = np.pi / 4 * random.random()
         # z_angle = np.pi / 4 * random.random()
-        img_transforms = Compose([
-            AddChannel(),
-            Flip(),
-            Rotate90(),
-            RandGaussianNoise(prob=0.8),
-            RandGaussianSmooth()
-        ])
-        label_transforms = Compose([
-            AddChannel(),
-            Flip(),
-            Rotate90()
-        ])
+        _transforms = [
+            AddChannel()
+        ]
+        if np.random.random(1)[0] > 0.5:
+            _transforms.append(Flip())
+        if np.random.random(1)[0] > 0.5:
+            _transforms.append(Rotate90())
+        label_transforms = Compose(_transforms)
+        # _transforms += [
+        #     RandGaussianNoise(prob=0.8),
+        #     RandGaussianSmooth()
+        # ]
+        img_transforms = Compose(_transforms)
+        # img_transforms = Compose([
+        #     AddChannel(),
+        #     Flip(),
+        #     Rotate90(),
+        #     RandGaussianNoise(prob=0.8),
+        #     RandGaussianSmooth()
+        # ])
+        # label_transforms = Compose([
+        #     AddChannel(),
+        #     Flip(),
+        #     Rotate90()
+        # ])
+
         image_arr = apply_transform(img_transforms, image_arr).squeeze(0)
         label_arr = apply_transform(label_transforms, label_arr).squeeze(0)
 
@@ -261,8 +275,8 @@ class FracNetInferenceDataset(Dataset):
 if __name__ == '__main__':
     image_dir = '/data/datasets/ribfrac/ribfrac-train-images/train_image'
     label_dir = '/data/datasets/ribfrac/ribfrac-train-images/train_label'
-    # train_dataset = FracNetTrainDataset(image_dir, label_dir)
-    # x, y = train_dataset.__getitem__(0)
+    train_dataset = FracNetTrainDataset(image_dir, label_dir)
+    x, y = train_dataset.__getitem__(0)
     # print(x.shape)  # torch.Size([num_samples, 1, crop_size, crop_size, crop_size])
     # print(y.shape)  # torch.Size([num_samples, 1, crop_size, crop_size, crop_size])
     # dl_train = FracNetTrainDataset.get_dataloader(train_dataset, 2, True)
