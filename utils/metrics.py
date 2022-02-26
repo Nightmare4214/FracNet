@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# _*_ coding:utf-8 _*_
 def dice(x, y, image=False):
     x = x.sigmoid()
     i, u = [t.flatten(1).sum(1) if image else t.sum() for t in [x * y, x + y]]

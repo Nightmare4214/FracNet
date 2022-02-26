@@ -78,7 +78,7 @@ In the [predict.py](predict.py), we adopt a post-processing procedure of [removi
 
 ***Note 1***: This project aims at a prototype for RibFrac Challenge; However, as the challenge data provider, we would like to avoid unintended data leakage. Therefore, we did **NOT** provide all details for the models, including those in both training and inference stages. Nevertheless, it is guaranteed that the performance in the EBioMedicine'20 paper could be reproduced with this one-stage FracNet using 3D UNet as backbone, but also note that 1) it is trained with challenge data and extra in-house data, 2) there is heavy pre-processing and post-processing (including *rib segmentation*). See more discussion in this [issue](https://github.com/M3DV/FracNet/issues/7).
 
-***Note 2***: Our paper on rib segmentation and centerline extraction has been accepted by [MICCAI'21](https://arxiv.org/abs/2109.09521). Feel free to check it ;)
+***Note 2***: Our paper on rib segmentation and centerline extraction has been recently accepted by MICCAI'21. Code and dataset will be available soon, please stay tuned!
 
 ### Evaluation
 To evaluate your prediction, run the following in command line:
