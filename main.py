@@ -31,9 +31,9 @@ def main(args):
     val_image_dir = args.val_image_dir
     val_label_dir = args.val_label_dir
     cur_time = time.time()
-    epochs = 200
+    epochs = 25
     lr = 1e-1
-    batch_size = 4
+    batch_size = 5
     num_workers = 4
     use_bce = True
     bce_lambda = 0.5

@@ -172,8 +172,8 @@ class FracNetTrainDataset(Dataset):
         #     Rotate90()
         # ])
 
-        image_arr = apply_transform(img_transforms, image_arr).squeeze(0)
-        label_arr = apply_transform(label_transforms, label_arr).squeeze(0)
+        # image_arr = apply_transform(img_transforms, image_arr).squeeze(0)
+        # label_arr = apply_transform(label_transforms, label_arr).squeeze(0)
 
         # calculate rois' centroids
         roi_centroids = self._get_roi_centroids(label_arr)
@@ -183,6 +183,11 @@ class FracNetTrainDataset(Dataset):
                       for centroid in roi_centroids]
         label_rois = [self._crop_roi(label_arr, centroid)
                       for centroid in roi_centroids]
+
+        image_rois = [apply_transform(img_transforms, image_roi).squeeze(0)
+                      for image_roi in image_rois]
+        label_rois = [apply_transform(label_transforms, label_roi).squeeze(0)
+                      for label_roi in label_rois]
 
         if self.transforms is not None:
             image_rois = [self._apply_transforms(image_roi)
@@ -277,8 +282,8 @@ if __name__ == '__main__':
     label_dir = '/data/datasets/ribfrac/ribfrac-train-images/train_label'
     train_dataset = FracNetTrainDataset(image_dir, label_dir)
     x, y = train_dataset.__getitem__(0)
-    # print(x.shape)  # torch.Size([num_samples, 1, crop_size, crop_size, crop_size])
-    # print(y.shape)  # torch.Size([num_samples, 1, crop_size, crop_size, crop_size])
+    print(x.shape)  # torch.Size([num_samples, 1, crop_size, crop_size, crop_size])
+    print(y.shape)  # torch.Size([num_samples, 1, crop_size, crop_size, crop_size])
     # dl_train = FracNetTrainDataset.get_dataloader(train_dataset, 2, True)
     # for x, y in dl_train:
     #     print(x.shape)  # torch.Size([batch_size*num_samples, 1, crop_size, crop_size, crop_size])

@@ -240,8 +240,8 @@ def predict(args):
     model = nn.DataParallel(model).cuda()
 
     transforms = [
-        tsfm.Window(-200, 1000),
-        tsfm.MinMaxNorm(-200, 1000)
+        tsfm.Window(-100, 1000),
+        tsfm.MinMaxNorm(-100, 1000)
     ]
 
     image_path_list = sorted([os.path.join(args.image_dir, file)
@@ -274,7 +274,7 @@ def predict(args):
 if __name__ == "__main__":
     import argparse
 
-    prob_thresh = 0.1  # 0.3
+    prob_thresh = 0.3  # 0.3
     bone_thresh = 300
     size_thresh = 100
 
